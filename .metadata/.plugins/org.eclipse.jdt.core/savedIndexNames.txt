@@ -1,5 +1,0 @@
-INDEX VERSION 1.131+/home/xian/Projets/M1-S1/ALGAV/.metadata/.plugins/org.eclipse.jdt.core
-3333860454.index
-2306341235.index
-4250710268.index
-805590558.index
