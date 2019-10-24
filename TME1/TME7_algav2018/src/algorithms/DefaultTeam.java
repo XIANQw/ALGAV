@@ -58,27 +58,26 @@ public class DefaultTeam {
 	   if (points.isEmpty()) {
 	     return null;
 	   }
+	   Boolean contain;
 	   Point p1 = points.get(0);
-	   Point p2 = points.get(1);
-	   Circle ci = this.createCircleByTwoPoints(p1, p2);
-	   for(int i=0; i < points.size(); i++) {
-		   if (this.containsPoint(ci, points.get(i))) continue;
-		   Circle cj = this.createCircleByTwoPoints(p1, points.get(i));
-		   for(int j=0; j < i; j++) {
-			   if (this.containsPoint(cj, points.get(j))) continue;
-			   Circle ck = this.createCircleByTwoPoints(p1, points.get(j));
-			   for (int k=0; k < j; k++) {
-				   if (this.containsPoint(ck, points.get(k))) continue;
-				   ck = this.createCircleByThreePoints(points.get(i), points.get(j), points.get(k));
-				   System.out.println(ck.getRadius() + " p1 " + points.get(i).x + " "+ points.get(i).y
-	    					+ " p2 " + points.get(j).x + " " + points.get(j).y 
-	    					+ " p3 " + points.get(k).x + " " + points.get(k).y) ;
+	   Circle res = new Circle(p1, Integer.MAX_VALUE);
+	   Line maxLine = this.calculDiametre(points);
+	   Circle m = this.createCircleByTwoPoints(maxLine.getP(), maxLine.getQ());
+	   if(this.containsAllpoints(m, points)) res = m;
+	   System.out.println("circle de 2 points, radium : " + res.getRadius());
+	   for(int i=0; i<points.size();i++) {
+		   for(int j=i; j<points.size();j++) {
+			   for (int k=j; k<points.size();k++) {
+				   Circle ctmp = this.createCircleByThreePoints(points.get(i), points.get(j), points.get(k));
+				   if(ctmp == null) continue;
+				   if(ctmp.getRadius() == 1) continue;
+				   contain = this.containsAllpoints(ctmp, points);
+				   if (contain && ctmp.getRadius() < res.getRadius()) res = ctmp;
 			   }
-			   cj = ck;
 		   }
-		   ci = cj;
 	   }
-	   return ci;
+	   System.out.println("circle de 3 points, radium : " + res.getRadius());
+	   return res;
 	}
   
   // Calcul the distance between two points
@@ -88,7 +87,7 @@ public class DefaultTeam {
   
   // check a circle contain the point or not
   public Boolean containsPoint(Circle circle, Point point) {
-	  return this.calculDistance(circle.getCenter(), point) <= (circle.getRadius() * circle.getRadius());
+	  return this.calculDistance(circle.getCenter(), point) <= circle.getRadius() * circle.getRadius();
   }
   
  // check a circle contain all the points or not
@@ -101,7 +100,7 @@ public class DefaultTeam {
   
   // create a circle by two points
   public Circle createCircleByTwoPoints(Point p1, Point p2) {
-	 int diameter = calculDistance(p1, p2);
+	 int diameter = (int) Math.sqrt(calculDistance(p1, p2));
 	 Point center = new Point((p1.x + p2.x)/2, (p1.y+p2.y)/2);
 	 return new Circle(center, diameter/2);
   }
@@ -111,17 +110,24 @@ public class DefaultTeam {
 	  double x1 = p1.x;
       double x2 = p2.x;
       double x3 = p3.x;
-      double y1 = p1.y;
+      double y1 = p1.y;	
       double y2 = p2.y;
       double y3 = p3.y;
-      double x = ((y2 - y1) * (y3 * y3 - y1 * y1 + x3 * x3 - x1 * x1) - (y3 - y1)
-              * (y2 * y2 - y1 * y1 + x2 * x2 - x1 * x1))
-              / (2 * (x3 - x1) * (y2 - y1) - 2 * ((x2 - x1) * (y3 - y1)));
-      double y = ((x2 - x1) * (x3 * x3 - x1 * x1 + y3 * y3 - y1 * y1) - (x3 - x1)
-              * (x2 * x2 - x1 * x1 + y2 * y2 - y1 * y1))
-              / (2 * (y3 - y1) * (x2 - x1) - 2 * ((y2 - y1) * (x3 - x1)));
-     Point center = new Point((int)x,(int)y);
-     int radium = (int) Math.sqrt(this.calculDistance(p1, center));
-     return new Circle(center, radium);
+      double t1 = x1*x1 + y1*y1;
+      double t2 = x2*x2 + y2*y2;
+      double t3 = x3*x3 + y3*y3;
+      double temp = x1*y2 + x2*y3 + x3*y1 - x1*y3 - x2*y1 - x3*y2;
+      if (temp == 0) return null;
+      double x = (t2*y3 + t1*y2 + t3*y1 - t2*y1 - t3*y2 - t1*y3)/temp/2;
+      double y = (t3*x2 + t2*x1 + t1*x3 - t1*x2 - t2*x3 - t3*x1)/temp/2;
+	  Point center = new Point((int)x, (int)y);
+	  int radium = (int) Math.sqrt(this.calculDistance(p1, center));
+	  return new Circle(center, radium + 1);
+  }
+  
+  public Boolean colineaire(Point p1, Point p2, Point p3) {
+	  int x1,x2,x3,y1,y2,y3;
+	  x1 = p1.x; x2=p2.x; x3=p3.x; y1=p1.y; y2=p2.y; y3=p3.y;
+	  return (x1*y2 + x2*y3 + x3*y1 - x1*y3 - x2*y1 - x3*y2) == 0;
   }
 }

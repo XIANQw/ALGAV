@@ -7,6 +7,5 @@
 	</classpathentry>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="lib" path="jars/supportGUI.jar"/>
-	<classpathentry kind="lib" path="/home/xian/Projets/M1-S1/ALGAV/TME1/TME7_algav2018/jars/supportGUI.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
