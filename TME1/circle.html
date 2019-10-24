@@ -108,6 +108,10 @@ border:1px solid #e5e5e5;
  *   - (box.x, box.y+box.height)                    *
  *   - (box.x+box.width, box.y+box.height)          *
  ****************************************************/
+    function distanceTwoPoints(x1, y1, x2, y2){
+      return (x1 - x2) *(x1 - x2) + (y1 - y2) * (y1 - y2)
+    }
+
 
     //collisionCircleBox: Cercle * Rectangle --> boolean
     //  revoie true ssi les deux objets s'intersectent
@@ -118,11 +122,12 @@ border:1px solid #e5e5e5;
       }
 
       // vertex
-      pointup = (box.x - box.width/2, box.y - box.height/2);
-      pointdown = (box.x - box.width/2, box.y + box.height/2);
-      tmp1 = (circle.x - pointup[0]) * (circle.x -pointup[0]) + (circle.y - pointup[1]) * (circle.y - pointup[1]) < circle.radius * circle.radius;
-      tmp2 = (circle.x - pointdown[0]) * (circle.x -pointdown[0]) + (circle.y - pointdown[1]) * (circle.y - pointdown[1]) < circle.radius * circle.radius;
-      return tmp1 || tmp2;
+      if (distanceTwoPoints(circle.x, circle.y, box.x, box.y) <= circle.radius * circle.radius) return true
+      if (distanceTwoPoints(circle.x, circle.y, box.x+box.width, box.y) <= circle.radius * circle.radius) return true
+      if (distanceTwoPoints(circle.x, circle.y, box.x, box.y+box.height) <= circle.radius * circle.radius) return true
+      if (distanceTwoPoints(circle.x, circle.y,box.x+box.width, box.y+box.height) <= circle.radius * circle.radius) return true
+
+        return false;
     }
 
 /****************************************************
