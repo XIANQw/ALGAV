@@ -30,10 +30,6 @@ public class DefaultTeam {
   // calculDiametre: ArrayList<Point> --> Line
   //   renvoie une paire de points de la liste, de distance maximum.
   
-	public int calculDistance(Point p1, Point p2) {
-		return (p1.x-p2.x) * (p1.x-p2.x) + (p1.y-p2.y)*(p1.y-p2.y);
-	}
-	
 	public Line calculDiametre(ArrayList<Point> points) {
 	    if (points.size()<3) {
 	      return null;
@@ -53,49 +49,79 @@ public class DefaultTeam {
 	    		}
 	    	}
 	    }
-	
-    
 	    return new Line(p,q);
 	}
 
   // calculCercleMin: ArrayList<Point> --> Circle
   //   renvoie un cercle couvrant tout point de la liste, de rayon minimum.
-  public Circle calculCercleMin(ArrayList<Point> points) {
-    if (points.isEmpty()) {
-      return null;
-    }
-    Point center=points.get(0);
-    Line maxLine = this.calculDiametre(points);
-    Point p = maxLine.getP();
-    Point q = maxLine.getQ();
-    int upper = (int) Math.sqrt(this.calculDistance(p, q));
-    int down = (int) upper / 2;
-    center.x = (int) (p.getX() + q.getX()) / 2;
-    center.y = (int) (p.getY() + q.getY()) / 2;	
-    while (down + 1 < upper) {
-    	int mid = (int) down + (upper - down) / 2;
-    	Circle tmp = new Circle(center, mid);
-    	Boolean contain = this.containsAllpoints(tmp, points);
-    	if(contain){
-    		upper = mid;
-    	}else {
-    		down = mid;
-    	}
-    }
-    Circle res = new Circle(center, down);
-    if(this.containsAllpoints(res, points)) return res;
-    return new Circle(center,upper);
-  }
+	 public Circle calculCercleMin(ArrayList<Point> points) {
+	   if (points.isEmpty()) {
+	     return null;
+	   }
+	   Point p1 = points.get(0);
+	   Point p2 = points.get(1);
+	   Circle ci = this.createCircleByTwoPoints(p1, p2);
+	   for(int i=0; i < points.size(); i++) {
+		   if (this.containsPoint(ci, points.get(i))) continue;
+		   Circle cj = this.createCircleByTwoPoints(p1, points.get(i));
+		   for(int j=0; j < i; j++) {
+			   if (this.containsPoint(cj, points.get(j))) continue;
+			   Circle ck = this.createCircleByTwoPoints(p1, points.get(j));
+			   for (int k=0; k < j; k++) {
+				   if (this.containsPoint(ck, points.get(k))) continue;
+				   ck = this.createCircleByThreePoints(points.get(i), points.get(j), points.get(k));
+				   System.out.println(ck.getRadius() + " p1 " + points.get(i).x + " "+ points.get(i).y
+	    					+ " p2 " + points.get(j).x + " " + points.get(j).y 
+	    					+ " p3 " + points.get(k).x + " " + points.get(k).y) ;
+			   }
+			   cj = ck;
+		   }
+		   ci = cj;
+	   }
+	   return ci;
+	}
   
+  // Calcul the distance between two points
+	public int calculDistance(Point p1, Point p2) {
+		return (p1.x-p2.x) * (p1.x-p2.x) + (p1.y-p2.y)*(p1.y-p2.y);
+	}
+  
+  // check a circle contain the point or not
   public Boolean containsPoint(Circle circle, Point point) {
 	  return this.calculDistance(circle.getCenter(), point) <= (circle.getRadius() * circle.getRadius());
   }
   
-  
+ // check a circle contain all the points or not
   public Boolean containsAllpoints(Circle circle, ArrayList<Point> points) {
 	  for (Point p : points) {
 		  if (!this.containsPoint(circle, p)) return false;
 	  }
 	  return true;
+  }
+  
+  // create a circle by two points
+  public Circle createCircleByTwoPoints(Point p1, Point p2) {
+	 int diameter = calculDistance(p1, p2);
+	 Point center = new Point((p1.x + p2.x)/2, (p1.y+p2.y)/2);
+	 return new Circle(center, diameter/2);
+  }
+  
+  //create a circle by three points
+  public Circle createCircleByThreePoints(Point p1, Point p2, Point p3) {
+	  double x1 = p1.x;
+      double x2 = p2.x;
+      double x3 = p3.x;
+      double y1 = p1.y;
+      double y2 = p2.y;
+      double y3 = p3.y;
+      double x = ((y2 - y1) * (y3 * y3 - y1 * y1 + x3 * x3 - x1 * x1) - (y3 - y1)
+              * (y2 * y2 - y1 * y1 + x2 * x2 - x1 * x1))
+              / (2 * (x3 - x1) * (y2 - y1) - 2 * ((x2 - x1) * (y3 - y1)));
+      double y = ((x2 - x1) * (x3 * x3 - x1 * x1 + y3 * y3 - y1 * y1) - (x3 - x1)
+              * (x2 * x2 - x1 * x1 + y2 * y2 - y1 * y1))
+              / (2 * (y3 - y1) * (x2 - x1) - 2 * ((y2 - y1) * (x3 - x1)));
+     Point center = new Point((int)x,(int)y);
+     int radium = (int) Math.sqrt(this.calculDistance(p1, center));
+     return new Circle(center, radium);
   }
 }
