@@ -61,16 +61,22 @@ public class DefaultTeam {
 	   Point p1 = points.get(0);
 	   Point p2 = points.get(1);
 	   Circle ci = this.createCircleByTwoPoints(p1, p2);
+	   System.out.println("pi " + points.get(0).x + " "+ points.get(0).y);
 	   for(int i=0; i < points.size(); i++) {
+		   
+		   System.out.println("ci_ "+i+" : " + ci.getRadius() + " pi_"+i+" : " + points.get(i).x + " "+ points.get(i).y);
+		   
 		   if (this.containsPoint(ci, points.get(i))) continue;
+		   
 		   Circle cj = this.createCircleByTwoPoints(p1, points.get(i));
 		   for(int j=0; j < i; j++) {
+			   
 			   if (this.containsPoint(cj, points.get(j))) continue;
 			   Circle ck = this.createCircleByTwoPoints(p1, points.get(j));
 			   for (int k=0; k < j; k++) {
 				   if (this.containsPoint(ck, points.get(k))) continue;
 				   ck = this.createCircleByThreePoints(points.get(i), points.get(j), points.get(k));
-				   System.out.println(ck.getRadius() + " p1 " + points.get(i).x + " "+ points.get(i).y
+				   System.out.println("ck_" + k + ": " + ck.getRadius() + " p1 " + points.get(i).x + " "+ points.get(i).y
 	    					+ " p2 " + points.get(j).x + " " + points.get(j).y 
 	    					+ " p3 " + points.get(k).x + " " + points.get(k).y) ;
 			   }
@@ -83,12 +89,12 @@ public class DefaultTeam {
   
   // Calcul the distance between two points
 	public int calculDistance(Point p1, Point p2) {
-		return (p1.x-p2.x) * (p1.x-p2.x) + (p1.y-p2.y)*(p1.y-p2.y);
+		return (int) Math.sqrt((p1.x-p2.x) * (p1.x-p2.x) + (p1.y-p2.y)*(p1.y-p2.y));
 	}
   
   // check a circle contain the point or not
   public Boolean containsPoint(Circle circle, Point point) {
-	  return this.calculDistance(circle.getCenter(), point) <= (circle.getRadius() * circle.getRadius());
+	  return this.calculDistance(circle.getCenter(), point) <= circle.getRadius();
   }
   
  // check a circle contain all the points or not
@@ -121,7 +127,7 @@ public class DefaultTeam {
               * (x2 * x2 - x1 * x1 + y2 * y2 - y1 * y1))
               / (2 * (y3 - y1) * (x2 - x1) - 2 * ((y2 - y1) * (x3 - x1)));
      Point center = new Point((int)x,(int)y);
-     int radium = (int) Math.sqrt(this.calculDistance(p1, center));
+     int radium = this.calculDistance(p1, center);
      return new Circle(center, radium);
   }
 }
