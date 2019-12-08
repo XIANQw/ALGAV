@@ -2,6 +2,8 @@ package algorithms;
 
 import java.awt.Point;
 import java.util.ArrayList;
+import java.util.Arrays;
+
 import supportGUI.Circle;
 import supportGUI.Line;
 
@@ -39,40 +41,104 @@ public class DefaultTeam {
     ArrayList<Point> enveloppe = new ArrayList<Point>();
     jarvis(points, enveloppe);
     Line res = new Line(enveloppe.get(0), enveloppe.get(1));
-    res = rotatingCalipers(enveloppe);  
-    int maxl = calculDistance(res.getP(), res.getQ());
+    res = rotatingCalipers(enveloppe); 
     return res;
   }
+  
+  // enveloppeConvexe: ArrayList<Point> --> ArrayList<Point>
+  //   renvoie l'enveloppe convexe de la liste.
+  public ArrayList<Point> enveloppeConvexe(ArrayList<Point> points){
+	  if (points.size()<3) {
+		  return null;
+	  }
+	  ArrayList<Point> enveloppe = new ArrayList<Point>();
+	  jarvis(points, enveloppe);
+	  Point[] rectangle = toussaint(enveloppe);
+	  ArrayList<Point> rec = new ArrayList<Point>();
+	  for(Point p : rectangle) {
+		  rec.add(p);
+		  System.out.println(p.x + " " + p.y);
+	  }
+
+	  return rec;
+  }
+  
+  
+  private Point[] toussaint(ArrayList<Point> polygon){
+	  double min = Double.MAX_VALUE;
+	  Point [] rectangle = new Point[4];
+	  int u = 1, r = 1, l = 1, n = polygon.size() - 1;
+	  for(int i=0; i < n; ++i) {
+		  while(Math.abs(crossProduct(polygon.get(i + 1), polygon.get(i), polygon.get(u))) <=
+				  Math.abs(crossProduct(polygon.get(i+1), polygon.get(i), polygon.get(u + 1)))){
+			  u = (u + 1) % n;
+		  }
+		  
+		  while(dotProduct(polygon.get(i + 1), polygon.get(i), polygon.get(r)) <=
+				  dotProduct(polygon.get(i + 1), polygon.get(i), polygon.get(r + 1))) {
+			  r = (r + 1) % n;
+		  }
+		  
+		  if(i == 0) l = r;
+		  
+		  while(dotProduct(polygon.get(i + 1), polygon.get(i), polygon.get(l)) >=
+				  dotProduct(polygon.get(i + 1), polygon.get(i), polygon.get(l + 1))) {
+			  l = (l + 1) % n;
+		  }
+		  
+		  double d_ = Math.sqrt((double)calculDistance(polygon.get(i), polygon.get(i + 1))),
+				  r_ = dotProduct(polygon.get(i + 1), polygon.get(i), polygon.get(r)) / d_,
+				  l_ = dotProduct(polygon.get(i + 1), polygon.get(i), polygon.get(l)) / d_,
+				  dd = Math.abs(crossProduct(polygon.get(i + 1), polygon.get(i), polygon.get(u))) / d_,
+				  ll = r_ - l_, s = ll * dd;
+		  if (s < min) {
+			  min = s;
+			  // top = pi + (p(i+1) - pi) * (r_/d_)
+			  Point top = dotPlusdot(polygon.get(i), dotProductConstant(dotMoinsdot(polygon.get(i + 1), polygon.get(i)), (r_/d_)));
+			  rectangle[0] = top;
+			  // right = top + ( (pr - top) * (dd / dis(pr, top)) )
+			  Point right = dotPlusdot(top, dotProductConstant(dotMoinsdot(polygon.get(r), top), (dd/Math.sqrt(calculDistance(polygon.get(r), top)))));
+			  rectangle[1] = right;
+			  //left = right + ( (pi - top) * (ll/r_) )
+			  Point left = dotPlusdot(right, dotProductConstant(dotMoinsdot(polygon.get(i), top), (ll/r_)));
+			  rectangle[2] = left;
+			  Point down = dotPlusdot(left, dotMoinsdot(top, right));
+			  rectangle[3] = down;
+		  }
+	  }
+	  return rectangle;
+  }
+  
   
   private Line rotatingCalipers(ArrayList<Point> points) {
 	  int j = 1, max = 0, n = points.size() - 1;
 	  Line res = null;
 	  for(int i = 0; i < n; i++) {
-		  while(dotProduct(points.get(i + 1), points.get(j + 1), points.get(i)) >
-		  dotProduct(points.get(i + 1), points.get(j), points.get(i))) {
+		  while(Math.abs(crossProduct(points.get(i + 1), points.get(i), points.get(j))) <
+		  Math.abs(crossProduct(points.get(i + 1), points.get(i), points.get(j + 1)))) {
 			  j = (j+1) % n;
 		  }
-		  int d1 = calculDistance(points.get(i), points.get(j));
-		  int d2 = calculDistance(points.get(i + 1), points.get(j + 1));
-		  Point p1 , p2;
-		  int tmp;
-		  if (d1 > d2) {
-			  p1 = points.get(i);
-			  p2 = points.get(j);
-			  tmp = d1;
-		  }else {
-			  p1 = points.get(i + 1);
-			  p2 = points.get(j + 1);
-			  tmp = d2;
-		  }
-		  if (tmp > max) {
-			  res = new Line(p1, p2);
-			  max = tmp;
+		  int dis = calculDistance(points.get(i), points.get(j));
+		  if (dis > max) {
+			  max = dis;
+			  res = new Line(points.get(i), points.get(j));
 		  }
 	  }
 	  return res;
   }
-
+  
+  private Point dotMoinsdot(Point a, Point b) {
+	  return new Point(a.x - b.x, a.y - b.y);
+  }
+  
+  private Point dotPlusdot(Point a, Point b) {
+	  return new Point(a.x + b.x, a.y + b.y);
+  }
+  
+  private Point dotProductConstant(Point p, double c) {
+	  return new Point((int)(p.x * c),(int)(p.y * c));
+  }
+  
   private int dotProduct(Point pre, Point cur, Point next) {
 	  int x1 = cur.x - pre.x, y1 = cur.y - pre.y,
 			  x2 = cur.x - next.x, y2 = cur.y - next.y;
@@ -154,19 +220,9 @@ public class DefaultTeam {
 	  return new Circle(center, radium + 1);
   }
 
-  // enveloppeConvexe: ArrayList<Point> --> ArrayList<Point>
-  //   renvoie l'enveloppe convexe de la liste.
-  public ArrayList<Point> enveloppeConvexe(ArrayList<Point> points){
-	  if (points.size()<3) {
-		  return null;
-		  }
-	  ArrayList<Point> enveloppe = new ArrayList<Point>();
-	  jarvis(points, enveloppe);
-	  return enveloppe;
-  }
+
   
-  @SuppressWarnings("static-access")
-public void jarvis(ArrayList<Point> points, ArrayList<Point> result){
+  public void jarvis(ArrayList<Point> points, ArrayList<Point> result){
 	  Point top = points.get(0);
 	  for(Point p : points) {
 		  if (p.y < top.y) top = p;
