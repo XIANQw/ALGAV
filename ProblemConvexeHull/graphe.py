@@ -1,5 +1,5 @@
 import numpy as np
-import matplotlib.pyplot as plt  
+import matplotlib.pyplot as plt
 
 with open("data") as data:
     flag = 0
@@ -19,7 +19,7 @@ y_str = y_str.split(" ")
 x = [int(x_str[i]) for i in range(len(x_str) - 1)]
 y = [float(y_str[i]) for i in range(len(y_str) - 1)]
 
-plt.ylim((-1, 1))
+plt.ylim((-0.5, 0.5))
 plt.plot(x,y)
 plt.title('Qualitiy')
 plt.xlabel('test number')
