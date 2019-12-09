@@ -53,7 +53,6 @@ public class DefaultTeam {
 	  ArrayList<Point> enveloppe = jarvis(points);
 	  ArrayList<Point> rec = toussaint(enveloppe);
 	  rec.add(rec.get(0));
-	  double q = quality(rec, enveloppe);
 	  return rec;
   }
   
