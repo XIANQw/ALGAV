@@ -2,6 +2,7 @@ package algorithms;
 
 import java.awt.Point;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import supportGUI.Circle;
 import supportGUI.Line;
@@ -37,8 +38,7 @@ public class DefaultTeam {
     if (points.size()<3) {
       return null;
     }
-    ArrayList<Point> enveloppe = new ArrayList<Point>();
-    jarvis(points, enveloppe);
+    ArrayList<Point> enveloppe = jarvis(points);
     Line res = new Line(enveloppe.get(0), enveloppe.get(1));
     res = rotatingCalipers(enveloppe); 
     return res;
@@ -50,24 +50,18 @@ public class DefaultTeam {
 	  if (points.size()<3) {
 		  return null;
 	  }
-	  ArrayList<Point> enveloppe = new ArrayList<Point>();
-	  jarvis(points, enveloppe);
-	  Point[] rectangle = toussaint(enveloppe);
-	  ArrayList<Point> rec = new ArrayList<Point>();
-	  for(Point p : rectangle) {
-		  rec.add(p);
-		  System.out.println(p.x + " " + p.y);
-	  }
-	  rec.add(rectangle[0]);
-	  quality(rec, enveloppe);
+	  ArrayList<Point> enveloppe = jarvis(points);
+	  ArrayList<Point> rec = toussaint(enveloppe);
+	  rec.add(rec.get(0));
+	  double q = quality(rec, enveloppe);
 	  return rec;
   }
   
-  private double quality(ArrayList<Point> rec, ArrayList<Point> polygon) {
+  public double quality(ArrayList<Point> rec, ArrayList<Point> polygon) {
 	  double aireRec = aireConvexPolygon(rec),
 			  airePolygon = aireConvexPolygon(polygon),
 			  quality = aireRec/airePolygon - 1.00;
-	  System.out.printf("rec: %.2f, polygon: %.2f, quality: %.2f", aireRec, airePolygon, quality);
+//	  System.out.printf("rec: %f  poly: %f  q: %f\n", aireRec, airePolygon, quality);
 	  return quality;
   }
   
@@ -76,10 +70,10 @@ public class DefaultTeam {
 	  for(int i = 0; i < polygon.size() - 1; i++) {
 		  aire += polygon.get(i).x * polygon.get(i + 1).y - polygon.get(i).y * polygon.get(i + 1).x;
 	  }
-	  return aire * 0.5;
+	  return Math.abs(aire) * 0.5;
   }
   
-  private Point[] toussaint(ArrayList<Point> polygon){
+  public ArrayList<Point> toussaint(ArrayList<Point> polygon){
 	  double min = Double.MAX_VALUE;
 	  Point [] rectangle = new Point[4];
 	  int u = 1, r = 1, l = 1, n = polygon.size() - 1;
@@ -121,7 +115,7 @@ public class DefaultTeam {
 			  rectangle[3] = down;
 		  }
 	  }
-	  return rectangle;
+	  return new ArrayList<Point>(Arrays.asList(rectangle));
   }
   
   
@@ -244,7 +238,8 @@ public class DefaultTeam {
 
 
   
-  public void jarvis(ArrayList<Point> points, ArrayList<Point> result){
+  public ArrayList<Point> jarvis(ArrayList<Point> points){
+	  ArrayList<Point> result = new ArrayList<Point>();
 	  Point top = points.get(0);
 	  for(Point p : points) {
 		  if (p.y < top.y) top = p;
@@ -265,6 +260,7 @@ public class DefaultTeam {
 		  cur = min;
 		  result.add(cur);
 	  } while(!cur.equals(top));
+	  return result;
   }
 
   
