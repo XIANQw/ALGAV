@@ -2,7 +2,6 @@ package algorithms;
 
 import java.awt.Point;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 import supportGUI.Circle;
 import supportGUI.Line;
@@ -59,10 +58,26 @@ public class DefaultTeam {
 		  rec.add(p);
 		  System.out.println(p.x + " " + p.y);
 	  }
-
+	  rec.add(rectangle[0]);
+	  quality(rec, enveloppe);
 	  return rec;
   }
   
+  private double quality(ArrayList<Point> rec, ArrayList<Point> polygon) {
+	  double aireRec = aireConvexPolygon(rec),
+			  airePolygon = aireConvexPolygon(polygon),
+			  quality = aireRec/airePolygon - 1.00;
+	  System.out.printf("rec: %.2f, polygon: %.2f, quality: %.2f", aireRec, airePolygon, quality);
+	  return quality;
+  }
+  
+  private double aireConvexPolygon(ArrayList<Point> polygon) {
+	  double aire = 0;
+	  for(int i = 0; i < polygon.size() - 1; i++) {
+		  aire += polygon.get(i).x * polygon.get(i + 1).y - polygon.get(i).y * polygon.get(i + 1).x;
+	  }
+	  return aire * 0.5;
+  }
   
   private Point[] toussaint(ArrayList<Point> polygon){
 	  double min = Double.MAX_VALUE;
@@ -99,7 +114,7 @@ public class DefaultTeam {
 			  // right = top + ( (pr - top) * (dd / dis(pr, top)) )
 			  Point right = dotPlusdot(top, dotProductConstant(dotMoinsdot(polygon.get(r), top), (dd/Math.sqrt(calculDistance(polygon.get(r), top)))));
 			  rectangle[1] = right;
-			  //left = right + ( (pi - top) * (ll/r_) )
+			  //left = right + ( (pi - top) * (ll / r_) )
 			  Point left = dotPlusdot(right, dotProductConstant(dotMoinsdot(polygon.get(i), top), (ll/r_)));
 			  rectangle[2] = left;
 			  Point down = dotPlusdot(left, dotMoinsdot(top, right));
@@ -143,6 +158,13 @@ public class DefaultTeam {
 	  int x1 = cur.x - pre.x, y1 = cur.y - pre.y,
 			  x2 = cur.x - next.x, y2 = cur.y - next.y;
 	  return x1*x2 + y1*y2;
+  }
+  
+  private int crossProduct(Point pre, Point cur, Point next) {
+	  int ax = cur.x - pre.x, ay = cur.y - pre.y, 
+			  bx = cur.x - next.x, by = cur.y - next.y;
+	  int res = (ax * by) - (ay * bx);
+	  return res;
   }
   
   // calculCercleMin: ArrayList<Point> --> Circle
@@ -245,11 +267,5 @@ public class DefaultTeam {
 	  } while(!cur.equals(top));
   }
 
-  private int crossProduct(Point pre, Point cur, Point next) {
-	  int ax = cur.x - pre.x, ay = cur.y - pre.y, 
-			  bx = cur.x - next.x, by = cur.y - next.y;
-	  int res = (ax * by) - (ay * bx);
-	  return res;
-  }
   
 }
