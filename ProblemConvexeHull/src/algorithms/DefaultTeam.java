@@ -54,13 +54,12 @@ public class DefaultTeam {
 	  ArrayList<Point> rec = toussaint(enveloppe);
 	  rec.add(rec.get(0));
 	  return rec;
-  }
+  }	
   
   public double quality(ArrayList<Point> rec, ArrayList<Point> polygon) {
 	  double aireRec = aireConvexPolygon(rec),
 			  airePolygon = aireConvexPolygon(polygon),
 			  quality = aireRec/airePolygon - 1.00;
-//	  System.out.printf("rec: %f  poly: %f  q: %f\n", aireRec, airePolygon, quality);
 	  return quality;
   }
   
@@ -71,9 +70,10 @@ public class DefaultTeam {
 	  }
 	  return Math.abs(aire) * 0.5;
   }
+
   
   public ArrayList<Point> toussaint(ArrayList<Point> polygon){
-	  double min = Double.MAX_VALUE;
+	  double min = Double.MAX_VALUE, d_ = 0, r_ = 0, l_ = 0, width = 0, height = 0, s = 0;
 	  Point [] rectangle = new Point[4];
 	  int u = 1, r = 1, l = 1, n = polygon.size() - 1;
 	  for(int i=0; i < n; ++i) {
@@ -94,24 +94,24 @@ public class DefaultTeam {
 			  l = (l + 1) % n;
 		  }
 		  
-		  double d_ = Math.sqrt((double)calculDistance(polygon.get(i), polygon.get(i + 1))),
-				  r_ = dotProduct(polygon.get(i + 1), polygon.get(i), polygon.get(r)) / d_,
-				  l_ = dotProduct(polygon.get(i + 1), polygon.get(i), polygon.get(l)) / d_,
-				  dd = Math.abs(crossProduct(polygon.get(i + 1), polygon.get(i), polygon.get(u))) / d_,
-				  ll = r_ - l_, s = ll * dd;
+		  d_ = Math.sqrt((double)calculDistance(polygon.get(i), polygon.get(i + 1)));
+		  r_ = dotProduct(polygon.get(i + 1), polygon.get(i), polygon.get(r)) / d_;
+		  l_ = dotProduct(polygon.get(i + 1), polygon.get(i), polygon.get(l)) / d_;
+		  width = Math.abs(crossProduct(polygon.get(i + 1), polygon.get(i), polygon.get(u))) / d_;
+		  height = r_ - l_; s = width * height;
 		  if (s < min) {
 			  min = s;
-			  // top = pi + (p(i+1) - pi) * (r_/d_)
-			  Point top = dotPlusdot(polygon.get(i), dotProductConstant(dotMoinsdot(polygon.get(i + 1), polygon.get(i)), (r_/d_)));
-			  rectangle[0] = top;
-			  // right = top + ( (pr - top) * (dd / dis(pr, top)) )
-			  Point right = dotPlusdot(top, dotProductConstant(dotMoinsdot(polygon.get(r), top), (dd/Math.sqrt(calculDistance(polygon.get(r), top)))));
-			  rectangle[1] = right;
-			  //left = right + ( (pi - top) * (ll / r_) )
-			  Point left = dotPlusdot(right, dotProductConstant(dotMoinsdot(polygon.get(i), top), (ll/r_)));
-			  rectangle[2] = left;
-			  Point down = dotPlusdot(left, dotMoinsdot(top, right));
-			  rectangle[3] = down;
+//			   top = Ei + (E(i+1) - Ei) * (r_/d_)
+			  Point A = dotMoinsdot(polygon.get(i), dotProductConstant(dotMoinsdot(polygon.get(i), polygon.get(i+1)), (r_/d_)));
+			  rectangle[0] = A;
+//			   right = top + ( (Er - top) * (dd / dis(Er, top)) )
+			  Point B = dotPlusdot(A, dotProductConstant(dotMoinsdot(polygon.get(r), A), (width/Math.sqrt(calculDistance(polygon.get(r), A)))));
+			  rectangle[1] = B;
+//			  left = right + ( (pi - top) * (ll / r_) )
+			  Point C = dotPlusdot(B, dotProductConstant(dotMoinsdot(polygon.get(i), A), (height/r_)));
+			  rectangle[2] = C;
+			  Point D = dotPlusdot(C, dotMoinsdot(A, B));
+			  rectangle[3] = D;
 		  }
 	  }
 	  return new ArrayList<Point>(Arrays.asList(rectangle));
@@ -166,6 +166,10 @@ public class DefaultTeam {
 		if (points.isEmpty()) {
 			return null;
 		}
+		return calculMinCercle(points);
+  }
+  
+  public Circle calculMinCercle(ArrayList<Point> points) {
 		Point p1 = points.get(0);
 		Point p2 = points.get(1);
 		Circle ci = this.createCircleByTwoPoints(p1, p2);

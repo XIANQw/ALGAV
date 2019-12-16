@@ -10,8 +10,9 @@ public class Main {
 	
 	public static ArrayList<Double> qualities = new ArrayList<Double>();
 	public static ArrayList<Integer> tests = new ArrayList<Integer>();
+	public static ArrayList<Long> times = new ArrayList<Long>();
 	
-	public static void print() {
+	public static void printQualityies() {
 		System.out.println("test");
 		for(int i=0; i<tests.size(); i++) {
 			System.out.printf("%d ", tests.get(i));
@@ -22,6 +23,16 @@ public class Main {
 		}
 	}
 	
+	public static void printTimes() {
+		System.out.println("test");
+		for(int i=0; i<tests.size(); i++) {
+			System.out.printf("%d ", tests.get(i));
+		}
+		System.out.println("times");
+		for(int i=0; i<times.size(); i++) {
+			System.out.printf("%ld ", times.get(i));
+		}
+	}	
 	public static void main( String[] argv ) {
 		String line;
 		int test = 0;
@@ -34,9 +45,12 @@ public class Main {
 			while (line != null) {
 				if(line.charAt(0) == 't') {
 					if(test > 0) {
+						long startTime = System.currentTimeMillis();
 						ArrayList<Point> polygon = d.jarvis(points);
 						ArrayList<Point> rec = d.toussaint(polygon);
+						long endTime =System.currentTimeMillis();
 						rec.add(rec.get(0));
+						times.add(endTime - startTime);
 						double q = d.quality(rec, polygon);
 						qualities.add(q);
 						tests.add(test);
@@ -47,11 +61,12 @@ public class Main {
 					test++;
 				}else {
 					String [] cor = line.split(" ");
+					System.out.println(cor[0] + " " + cor[1]);
 					points.add(new Point(Integer.parseInt(cor[0]),Integer.parseInt(cor[1])));
 				}
 				line = in.readLine();
 			}
-			print();
+			printTimes();
 			in.close();
 		}catch (IOException e) {
 			System.err.println("io error");

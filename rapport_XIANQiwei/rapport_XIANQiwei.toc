@@ -1,0 +1,9 @@
+\babel@toc {french}{}
+\contentsline {section}{\numberline {1}Introduction}{2}
+\contentsline {section}{\numberline {2}Définitions, notations, stuctures de donnés utilisée}{3}
+\contentsline {section}{\numberline {3}Présentation de l'algorithm de Toussaint}{3}
+\contentsline {subsection}{\numberline {3.1}Etape 1 calculer $A^{\prime }$, $B^{\prime }$, $C^{\prime }$, $D^{\prime }$}{3}
+\contentsline {subsection}{\numberline {3.2}Etape 2 calculer l'aire $\mathcal {S}$ de rectangle}{4}
+\contentsline {subsection}{\numberline {3.3}Etape 3 calculer $A$, $B$, $C$, $D$}{4}
+\contentsline {section}{\numberline {4}Résultat du test}{6}
+\contentsline {section}{\numberline {5}Performance de l'algorithme}{6}
