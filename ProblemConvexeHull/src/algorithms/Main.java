@@ -5,34 +5,67 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class Main {
 	
-	public static ArrayList<Double> qualities = new ArrayList<Double>();
-	public static ArrayList<Integer> tests = new ArrayList<Integer>();
-	public static ArrayList<Long> times = new ArrayList<Long>();
+	public static ArrayList<Mytest<Double>> qualities = new ArrayList<Mytest<Double>>();
+	public static ArrayList<Mytest<Integer>> times = new ArrayList<Mytest<Integer>>();
+	public static ArrayList<Mytest<Integer>> nodes = new ArrayList<Mytest<Integer>>();
 	
+	@SuppressWarnings("unchecked")
 	public static void printQualityies() {
 		System.out.println("test");
-		for(int i=0; i<tests.size(); i++) {
-			System.out.printf("%d ", tests.get(i));
+		Collections.sort(qualities);
+		for(int i=0; i<qualities.size(); i++) {
+			System.out.printf("%d ", qualities.get(i).numTest);
 		}
+		System.out.printf("\n");
 		System.out.println("qualities");
 		for(int i=0; i<qualities.size(); i++) {
-			System.out.printf("%.5f ", qualities.get(i));
+			System.out.printf("%g ", qualities.get(i).data);
+		}
+	}
+	@SuppressWarnings("unchecked")
+	public static void printTimes() {
+		Collections.sort(times);
+		System.out.println("test");
+		for(int i=0; i<times.size(); i++) {
+			System.out.printf("%d ", times.get(i).numTest);
+		}
+		System.out.printf("\n");
+		System.out.println("times");
+		for(int i=0; i<times.size(); i++) {
+			System.out.printf("%d ", times.get(i).data);
 		}
 	}
 	
-	public static void printTimes() {
+	@SuppressWarnings("unchecked")
+	public static void printNodes() {
+		Collections.sort(nodes);
 		System.out.println("test");
-		for(int i=0; i<tests.size(); i++) {
-			System.out.printf("%d ", tests.get(i));
+		for(int i=0; i<nodes.size(); i++) {
+			System.out.printf("%d ", nodes.get(i).numTest);
 		}
-		System.out.println("times");
-		for(int i=0; i<times.size(); i++) {
-			System.out.printf("%ld ", times.get(i));
+		System.out.printf("\n");
+		System.out.println("numbre des points de polygon");
+		for(int i=0; i<nodes.size(); i++) {
+			System.out.printf("%d ", nodes.get(i).data);
 		}
-	}	
+	}
+	public static int treatNumber(String s) {
+		int i = 0;
+		while(i < s.length() && s.charAt(i) <= '9' && s.charAt(i) >= '0') {
+			i++;
+		}try {
+			return Integer.parseInt(s.substring(0, i));
+		}catch (Exception e) {
+			return -1;
+		}
+	}
+	
+
+	
 	public static void main( String[] argv ) {
 		String line;
 		int test = 0;
@@ -41,6 +74,7 @@ public class Main {
 			DefaultTeam d = new DefaultTeam();
 			ArrayList<Point> points = new ArrayList<Point>();
 			String prev = null;
+			int numTest = -1;
 			line = in.readLine();
 			while (line != null) {
 				if(line.charAt(0) == 't') {
@@ -49,24 +83,27 @@ public class Main {
 						ArrayList<Point> polygon = d.jarvis(points);
 						ArrayList<Point> rec = d.toussaint(polygon);
 						long endTime =System.currentTimeMillis();
+						int diff = (int) (endTime - startTime);
 						rec.add(rec.get(0));
-						times.add(endTime - startTime);
 						double q = d.quality(rec, polygon);
-						qualities.add(q);
-						tests.add(test);
+						Mytest<Double> testQuality = new Mytest<Double>(numTest, q);
+						Mytest<Integer> testTime = new Mytest<Integer>(numTest, diff);
+						Mytest<Integer> testPolygon = new Mytest<Integer>(numTest, polygon.size());
+						qualities.add(testQuality);
+						times.add(testTime);
+						nodes.add(testPolygon);
 						points.clear();
 					}
-					int end = Math.min(line.length(), 9);
-					prev = line.substring(0, end);
+					prev = line.substring(5, 10);
+					numTest = treatNumber(prev);
 					test++;
 				}else {
 					String [] cor = line.split(" ");
-					System.out.println(cor[0] + " " + cor[1]);
 					points.add(new Point(Integer.parseInt(cor[0]),Integer.parseInt(cor[1])));
 				}
 				line = in.readLine();
 			}
-			printTimes();
+			printNodes();
 			in.close();
 		}catch (IOException e) {
 			System.err.println("io error");

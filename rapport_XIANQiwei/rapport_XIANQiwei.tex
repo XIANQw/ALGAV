@@ -16,19 +16,36 @@
 \begin{document}
 \setlength{\parindent}{0pt}
 \begin{titlepage}
-	\thispagestyle{empty}
-	\raggedleft 
-	\rule{1pt}{\textheight} % Vertical line
-	\hspace{0.05\textwidth} % Whitespace between the vertical line and title page text
-	\parbox[b]{0.75\textwidth}{ % Paragraph box for holding the title page text, adjust the width to move the title page left or right on the page
+	
+	\begin{center}
+		% Upper part of the page
+		\includegraphics[width=0.35\textwidth]{logo.png}\\[1cm]    
 		
-		{\Huge\bfseries Calculer le rectange \\minimum convexe}\\[2\baselineskip] % Title
-		{\Large\textsc{Qiwei XIAN}} % Author name, lower case for consistent small caps
+		\textsc{\Large Rapport de ALGAV}\\[0.5cm]
 		
-		\vspace{0.5\textheight} % Whitespace between the title block and the publisher
-
-		{\noindent Sorbonne Université}\\[\baselineskip] % Publisher and logo
-	}
+		% Title
+		
+		{ \huge \bfseries Caculer rectangle minimum convexe et cercle minimum convexe}\\[0.4cm]
+		
+		% Author and supervisor
+		\begin{minipage}{0.4\textwidth}
+			\begin{flushleft} \large
+				\emph{Author:}\\
+				Qiwei \textsc{XIAN}
+			\end{flushleft}
+		\end{minipage}
+		\begin{minipage}{0.4\textwidth}
+			\begin{flushright} \large
+				\emph{Professeur:} \\
+				Prof.\textsc{Bui-Xuan}
+			\end{flushright}
+		\end{minipage}
+		
+		\vfill
+		% Bottom of the page
+		{\large \today}
+	\end{center}
+	
 \end{titlepage}
 \clearpage
 
@@ -41,14 +58,15 @@
 \rhead{\thepage}
 \fancyfoot{}
 
-\section{Introduction}
+\section{Algorithme Toussaint}
+\subsection{Introduction}
 Donner une ensemble $\mathcal{P}$ de n points dans $\mathbb{R}$, le rectangle minimum convexe est le rectangle minimum qui entourne tous les points de $\mathcal{P}$.\\\\
 Calculer le rectangle minimum convexe est un des problèmes classiques de la géométrie algorithmique. Pour résoudre ce problème, un majorant de $\mathcal{O}(n^2)$ est donné par l'algorithm recherche exhaustive. Il existe aussi les autre meilleurs algorithmes comme \textbf{l'algorithme Shamos}, le premier fois que Michael Shamos l'a utilisé afin de calculer la diamère d’un polygon convexe en temps $\mathcal{O}(n)$ en 1978. En plus \textbf{l'algorithme Toussaint}, Godfried Toussaint a résolu beaucoup de problèmes de la géométrie algorithmique en utilisant la phase "\textbf{rotating caliper}". Dans mon projet, je cherche à calculer le rectangle minimum convexe en utilisant l'algorithme Toussaint.\\\\
 Néanmoins il faut trouver l'enveloppe convexe de $\mathcal{P}$ avant d'utiliser ces algorithmes. Pour faire ce précalcul, il y a plusieurs choix possibles. Par exemple le \textbf{parcours de Graham}, il nous permet de calculer un enveloppe convexe en temps $\mathcal{O}(n\log n)$. Un autre algorithme la \textbf{marche de Jarvis}, il a aussi une excellente complexité en $\mathcal{O}(nh)$ où h représente le nombre de sommets de l'enveloppe convexe. \\\\
 Dans ce projet, je choisis la marche de Jarvis afin de précalculer l'enveloppe convexe de $\mathcal{P}$. Dès que obtenir l'envelloppe, je vais utiliser rotating caliper pour chercher les qutre points de l'enveloppe qui se trouve aussi dans le rectangle. Après je peux calculer les sommets de rectangle en utilisant ces quatre points. La complexité théorique est $\mathcal{O}(n + r)$ où r est la complexité de la marche de Jarvis.
 \clearpage
 
-\section{Définitions, notations, stuctures de donnés utilisée}
+\subsection{Définitions, notations, stuctures de donnés utilisée}
 
 \begin{enumerate}
 	\item $\overrightarrow{ab}$ est représente la vecteur depuis $a$ vers $b$, $|\overrightarrow{ab}|$ est le scalaire de $\overrightarrow{ab}$.
@@ -65,10 +83,10 @@ Un rectangle convexe $Rec$ est une liste de qutre points. $RecMin$ est le rectan
 \textbf{Lemma 2} il existe une arête $\alpha$ de $RecMin$, $\alpha$ passe une arête du polygon minimum convexe.
 
 
-\section{Présentation de l'algorithm de Toussaint}
+\subsection{Présentation de l'algorithm de Toussaint}
 Afin de calculer les sommets A, B, C, D de rectangle, on a besoin d'abord de trouver $\alpha$ qui est colinéaire avec une arête de rectangle et les points $A^{\prime}$,  $B^{\prime}$, $C^{\prime}$, $D^{\prime}$ de $\mathcal{B}$ qui est sur les arêtes de $RecMin$.
 
-\subsection{Etape 1 calculer $A^{\prime}$,  $B^{\prime}$, $C^{\prime}$, $D^{\prime}$}
+\subsubsection{Etape 1 calculer $A^{\prime}$,  $B^{\prime}$, $C^{\prime}$, $D^{\prime}$}
 Pour $A^{\prime}$, on peut énumérer chaque points $i$ de $\mathrm{E}$, $A^{\prime} = E_{i}$,
 et $\alpha = \overrightarrow{E_{i+1}E_{i}}$ \\
 
@@ -78,7 +96,7 @@ Pour $C^{\prime}$, il est le point antipodal de $A^{\prime}$, la distance entre 
 
 Le dernier point $D^{\prime}$ est le plus est point, $\angle \alpha D^{\prime}$ est le plus petit. On énumère chaque point $E_{l}$ de $\mathrm{E}$, comme $\mathrm{E}$ est en ordre du sens horaire, au début $|\alpha\cdot\overrightarrow{E_{l}A^{\prime}}| \geq|\alpha\cdot\overrightarrow{E_{l+1}A^{\prime}}|$, si une fois $|\alpha\cdot\overrightarrow{E_{l}A^{\prime}}| < |\alpha\cdot\overrightarrow{E_{l+1}A^{\prime}}|$, alors $D^{\prime}$ = $E_{l}$\\
 
-\subsection{Etape 2 calculer l'aire $\mathcal{S}$ de rectangle}
+\subsubsection{Etape 2 calculer l'aire $\mathcal{S}$ de rectangle}
 Pour la hauteur de rectangle $\mathrm{h}$, on suppose que le point $C^{\prime}_{\alpha}$ est le projecteur de $C^{\prime}$ sur $\alpha$, $\mathrm{h}= |\overrightarrow{C^{\prime}_{\alpha}C^{\prime}}|$  
 $\mathcal{S}_{\text{parallélogramme}}$ = $|\vec{\alpha}\times\overrightarrow{C^{\prime}A^{\prime}}|$. \\
 $\mathrm{h} =  \frac{\mathcal{S}_{\text{parallélogramme}}}{|\vec{\alpha}|}$\\
@@ -90,7 +108,7 @@ $|\overrightarrow{B^{\prime}_{\alpha}D^{\prime}_{\alpha}}| = |\overrightarrow{D^
 Donc, $\mathcal{S} = h \times w$. Si $\mathcal{S} < \mathcal{S}_{RecMin}$, on va continue à l'étape 3 afin de construire le nouveau $RecMin$ sinon on essaie le $A^{\prime}$ suivant.\\ 
 
 
-\subsection{Etape 3 calculer $A$, $B$, $C$, $D$}
+\subsubsection{Etape 3 calculer $A$, $B$, $C$, $D$}
 Dès que'on obtient $A^{\prime}$,  $B^{\prime}$, $C^{\prime}$, $D^{\prime}$, $\alpha$, $\overrightarrow{B^{\prime}_{\alpha}A^{\prime}}$, $\overrightarrow{B^{\prime}_{\alpha}D^{\prime}_{\alpha}}$,
 $\overrightarrow{C^{\prime}_{\alpha}C^{\prime}}$, on peut facilement calculer $A$, $B$, $C$, $D$.\\
 $A$ est le point $B^{\prime}_{\alpha}$, $B^{\prime}_{\alpha} = A^{\prime} - \alpha\cdot\frac{\overrightarrow{B^{\prime}_{\alpha}A^{\prime}}}{|\alpha|}$\\
@@ -140,13 +158,24 @@ Le dernier point $D$ = $A - B$ = $C + \overrightarrow{BB^{\prime}_{\alpha}}$
 	\caption{pseudocode de l'algorithm de Toussaint}
 \end{algorithm}
 
-\section{Résultat du test}
+\subsection{Résultat du test}
 Le graphe dessous est le résultat de qualité associé à chaque teste de VAROUMAS.\\
-\includegraphics[width=\textwidth]{quality_graph.png}\\
-On sait que l'aire du rectangle minimum convexe est toujours plus grand que l'aire de polygone convexe.
+\includegraphics[width=\textwidth]{testQuality.png}\\
+$\text{Qualité}_{rectangle} = \frac{\text{aire rectangle}}{\text{aire polygone}} - 100\%$\\
+L'abscisse est représente le numéro de test et l'ordonnée est le qualité de rectangle minimum convexe.
+On peut voir que l'aire du rectangle minimum convexe est toujours plus grand que l'aire de polygone convexe.
 
 
-\section{Performance de l'algorithme}
+\subsection{Performance de l'algorithme}
+Le graphe dessous est le temps d'exécution pour chaque teste de VAROUMAS.\\
+\includegraphics[width=\textwidth]{testTime.png}\\
+\includegraphics[width=\textwidth]{testNodes.png}\\
+Pour chaque cas de test, il y a 255 points aléatoire, après calculer l'enveloppe convexe en utilisant Jarvis, il reste seulement $\mathit{h}$ points de l'enveloppe convexe $ 12 \leqslant h \leqslant 25 $ dans tous les tests. En fonction de la complexité théorique de l'algorithme  $\mathcal{C} = \mathcal{O}(nh) + \mathcal{O}(h)$.
+Donc le temps d'exécution n'est pas très évident. Pour le plupart de tests, le temps d'exécution $\mathit{t}$, $ 0 < \mathit{t} <= 1 ms$.
+
+
+
+\section{Algorithme Ritter}
 
 
 \end{document}
