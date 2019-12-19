@@ -7,7 +7,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class Main {
+public class TestRectangle {
 	
 	public static ArrayList<Mytest<Double>> qualities = new ArrayList<Mytest<Double>>();
 	public static ArrayList<Mytest<Integer>> times = new ArrayList<Mytest<Integer>>();
@@ -71,7 +71,6 @@ public class Main {
 		int test = 0;
 		try {
 			BufferedReader in = new BufferedReader(new FileReader("input.points"));
-			DefaultTeam d = new DefaultTeam();
 			ArrayList<Point> points = new ArrayList<Point>();
 			String prev = null;
 			int numTest = -1;
@@ -80,12 +79,12 @@ public class Main {
 				if(line.charAt(0) == 't') {
 					if(test > 0) {
 						long startTime = System.currentTimeMillis();
-						ArrayList<Point> polygon = d.jarvis(points);
-						ArrayList<Point> rec = d.toussaint(polygon);
+						ArrayList<Point> polygon = Calcule.jarvis(points);
+						ArrayList<Point> rec = Toussaint.toussaint(polygon);
 						long endTime =System.currentTimeMillis();
 						int diff = (int) (endTime - startTime);
 						rec.add(rec.get(0));
-						double q = d.quality(rec, polygon);
+						double q = Calcule.quality(rec, polygon);
 						Mytest<Double> testQuality = new Mytest<Double>(numTest, q);
 						Mytest<Integer> testTime = new Mytest<Integer>(numTest, diff);
 						Mytest<Integer> testPolygon = new Mytest<Integer>(numTest, polygon.size());

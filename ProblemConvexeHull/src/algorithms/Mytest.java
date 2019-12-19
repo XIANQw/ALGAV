@@ -1,5 +1,6 @@
 package algorithms;
 
+@SuppressWarnings("rawtypes")
 public class Mytest<T> implements Comparable{
 	public int numTest;
 	public T data;
