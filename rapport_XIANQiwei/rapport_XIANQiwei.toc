@@ -9,3 +9,7 @@
 \contentsline {subsection}{\numberline {1.4}Résultat du test}{6}
 \contentsline {subsection}{\numberline {1.5}Performance de l'algorithme}{7}
 \contentsline {section}{\numberline {2}Algorithme Ritter}{8}
+\contentsline {subsection}{\numberline {2.1}Introduction}{8}
+\contentsline {subsection}{\numberline {2.2}Présentation de l'algorithm de Ritter}{8}
+\contentsline {subsection}{\numberline {2.3}Résultat du test}{8}
+\contentsline {subsection}{\numberline {2.4}Performance de l'algorithme}{8}

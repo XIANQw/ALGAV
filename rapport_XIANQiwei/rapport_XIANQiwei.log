@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.99998 (TeX Live 2017/Debian) (preloaded format=xelatex 2019.12.14)  17 DEC 2019 01:30
+This is XeTeX, Version 3.14159265-2.6-0.99998 (TeX Live 2017/Debian) (preloaded format=xelatex 2019.12.14)  20 DEC 2019 01:22
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1473,12 +1473,22 @@ File: testTime.png Graphic file (type bmp)
 <testTime.png>
 File: testNodes.png Graphic file (type bmp)
 <testNodes.png>
- [6] [7] [8] (./rapport_XIANQiwei.aux) ) 
+ [6] [7]
+File: quality_circle.png Graphic file (type bmp)
+<quality_circle.png>
+
+Underfull \hbox (badness 10000) in paragraph at lines 185--186
+
+ []
+
+[8
+
+] (./rapport_XIANQiwei.aux) ) 
 Here is how much of TeX's memory you used:
- 22111 strings out of 493007
- 431121 string characters out of 6136718
- 522599 words of memory out of 5000000
- 25904 multiletter control sequences out of 15000+600000
+ 22115 strings out of 493007
+ 431206 string characters out of 6136718
+ 521599 words of memory out of 5000000
+ 25907 multiletter control sequences out of 15000+600000
  600609 words of font info for 65 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
  46i,26n,64p,10451b,468s stack positions out of 5000i,500n,10000p,200000b,80000s

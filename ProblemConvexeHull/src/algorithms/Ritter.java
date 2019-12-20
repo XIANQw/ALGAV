@@ -27,14 +27,12 @@ public class Ritter {
 		rest.remove(p);
 		rest.remove(q);
 		// 7. A loop  
-		System.out.println(rest.size());
 		while (!rest.isEmpty()) {
 			Iterator<Point> itr = rest.iterator();
 			while(itr.hasNext()) {
 				Point s = itr.next();
 				// 8. remove s if s is covered
 				if (Calcule.containsPoint(res, s)) {
-					System.out.println("cover");
 					itr.remove();
 					continue;
 				}
@@ -43,7 +41,6 @@ public class Ritter {
 						sq = sc + res.getRadius(),
 						sc2 = sq / 2,
 						cc2 = sc - sc2;
-
 				// new centre c2 = c + cs * (|cc2|/|sc|)
 				Point c2 = Calcule.dotPlusdot(C, Calcule.dotProductConstant(Calcule.dotMoinsdot(s, C), cc2/sc));
 				res = new Circle(c2, (int) sc2 + 1);

@@ -14,14 +14,14 @@ public class TestRectangle {
 	public static ArrayList<Mytest<Integer>> nodes = new ArrayList<Mytest<Integer>>();
 	
 	@SuppressWarnings("unchecked")
-	public static void printQualityies() {
+	public static void printQuality() {
 		System.out.println("test");
 		Collections.sort(qualities);
 		for(int i=0; i<qualities.size(); i++) {
 			System.out.printf("%d ", qualities.get(i).numTest);
 		}
 		System.out.printf("\n");
-		System.out.println("qualities");
+		System.out.println("data-quality");
 		for(int i=0; i<qualities.size(); i++) {
 			System.out.printf("%g ", qualities.get(i).data);
 		}
@@ -34,7 +34,7 @@ public class TestRectangle {
 			System.out.printf("%d ", times.get(i).numTest);
 		}
 		System.out.printf("\n");
-		System.out.println("times");
+		System.out.println("data-time");
 		for(int i=0; i<times.size(); i++) {
 			System.out.printf("%d ", times.get(i).data);
 		}
@@ -48,7 +48,7 @@ public class TestRectangle {
 			System.out.printf("%d ", nodes.get(i).numTest);
 		}
 		System.out.printf("\n");
-		System.out.println("numbre des points de polygon");
+		System.out.println("data-node");
 		for(int i=0; i<nodes.size(); i++) {
 			System.out.printf("%d ", nodes.get(i).data);
 		}
@@ -63,8 +63,6 @@ public class TestRectangle {
 			return -1;
 		}
 	}
-	
-
 	
 	public static void main( String[] argv ) {
 		String line;

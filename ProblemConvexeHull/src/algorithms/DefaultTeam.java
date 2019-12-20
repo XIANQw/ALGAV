@@ -37,7 +37,7 @@ public class DefaultTeam {
     if (points.size()<3) {
       return null;
     }
-    ArrayList<Point> enveloppe = jarvis(points);
+    ArrayList<Point> enveloppe = Calcule.jarvis(points);
     Line res = new Line(enveloppe.get(0), enveloppe.get(1));
     res = Toussaint.rotatingCalipers(enveloppe); 
     return res;
@@ -49,14 +49,12 @@ public class DefaultTeam {
 	  if (points.size()<3) {
 		  return null;
 	  }
-	  ArrayList<Point> enveloppe = jarvis(points);
+	  ArrayList<Point> enveloppe = Calcule.jarvis(points);
 	  ArrayList<Point> rec = Toussaint.toussaint(enveloppe);
 	  rec.add(rec.get(0));
 	  return rec;
   }	
-  
-  
-  
+    
   // calculCercleMin: ArrayList<Point> --> Circle
   //   renvoie un cercle couvrant tout point de la liste, de rayon minimum.
   public Circle calculCercleMin(ArrayList<Point> points) {
@@ -88,8 +86,5 @@ public class DefaultTeam {
 		   }
 		return ci;
   }
-  
-
-
-  
+    
 }

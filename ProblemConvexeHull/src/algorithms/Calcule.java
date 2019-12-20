@@ -44,6 +44,13 @@ public class Calcule{
 		  return quality;
 	  }
 	  
+	  // Computing the quality of a circle and a polygon
+	  public static double quality(Circle res, ArrayList<Point> polygon) {
+		  double areaCircle = Math.PI * res.getRadius() * res.getRadius();
+		  double areaPolygon = Calcule.areaConvexPolygon(polygon);
+		  return areaCircle/areaPolygon - 1;
+	  }
+	  
 	  // Computing the area of a polygon
 	  private static double areaConvexPolygon(ArrayList<Point> polygon) {
 		  double aire = 0;
@@ -139,9 +146,4 @@ public class Calcule{
 		  return result;
 	  }
 
-	public static double quality(Circle res, ArrayList<Point> polygon) {
-		double areaCircle = Math.PI * res.getRadius() * res.getRadius();
-		double areaPolygon = Calcule.areaConvexPolygon(polygon);
-		return areaCircle/areaPolygon;
-	}
 }

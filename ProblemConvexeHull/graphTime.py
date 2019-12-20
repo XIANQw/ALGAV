@@ -1,7 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-with open("testTime") as data:
+with open("testTime_cercle") as data:
     flag = 0
     for line in data:
         if(line[0] == "t" or line[0] == "d"):

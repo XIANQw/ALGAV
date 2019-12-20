@@ -30,8 +30,10 @@ public class TestCircle extends TestRectangle{
 						double q = Calcule.quality(res, polygon);
 						Mytest<Double> testQuality = new Mytest<Double>(numTest, q);
 						Mytest<Integer> testTime = new Mytest<Integer>(numTest, diff);
+						Mytest<Integer> testPoint = new Mytest<Integer>(numTest, points.size());
 						qualities.add(testQuality);
 						times.add(testTime);
+						nodes.add(testPoint);
 						points.clear();
 					}
 					prev = line.substring(5, 10);
@@ -43,7 +45,7 @@ public class TestCircle extends TestRectangle{
 				}
 				line = in.readLine();
 			}
-			printTimes();
+			printQuality();
 			in.close();
 		}catch (IOException e) {
 			System.err.println("io error");
