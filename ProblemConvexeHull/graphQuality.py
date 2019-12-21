@@ -1,7 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-with open("testQuality_cercle") as data:
+with open("testQuality") as data:
     flag = 0
     for line in data:
         if(line[0] == "t" or line[0] == "d"):
@@ -21,8 +21,12 @@ y = [float(y_str[i]) for i in range(len(y_str) - 1)]
 
 plt.ylim((0, 1.1))
 plt.bar(x, y)
-plt.title('Qualitiy-Circle')
-plt.xlabel('test number')
-plt.ylabel('qualities')
+
+plt.xticks(fontsize=20)
+plt.yticks(fontsize=20)
+plt.title('Qualitiy-Rectangle', fontsize=20)
+plt.xlabel('Test number', fontsize=20)
+plt.ylabel('Qualities', fontsize=20)
+
 plt.legend()
 plt.show()

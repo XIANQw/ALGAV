@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.99998 (TeX Live 2017/Debian) (preloaded format=xelatex 2019.12.14)  20 DEC 2019 01:22
+This is XeTeX, Version 3.14159265-2.6-0.99998 (TeX Live 2017/Debian) (preloaded format=xelatex 2019.12.14)  21 DEC 2019 23:20
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1410,87 +1410,82 @@ File: ulasy.fd 1998/08/17 v2.2e LaTeX symbol font definitions
 
  [1
 
+] [2
+
 ]
 Missing character: There is no ’ in font ec-lmr10!
+Missing character: There is no ’ in font ec-lmr10!
 
-Underfull \hbox (badness 10000) in paragraph at lines 63--67
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 63--67
+Underfull \hbox (badness 10000) in paragraph at lines 82--86
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 63--67
-
- []
-
-[2
-
-]
-Underfull \hbox (badness 10000) in paragraph at lines 77--80
+Underfull \hbox (badness 10000) in paragraph at lines 82--86
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 90--92
+Underfull \hbox (badness 10000) in paragraph at lines 82--86
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 93--94
+Underfull \hbox (badness 10000) in paragraph at lines 97--99
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 95--96
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 97--98
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 100--103
+Underfull \hbox (badness 10000) in paragraph at lines 100--101
 
  []
 
 [3
 
 ]
-Underfull \hbox (badness 10000) in paragraph at lines 104--109
+Underfull \hbox (badness 10000) in paragraph at lines 102--103
 
  []
 
-File: testQuality.png Graphic file (type bmp)
-<testQuality.png>
+
+Underfull \hbox (badness 10000) in paragraph at lines 104--105
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 107--110
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 111--116
+
+ []
+
+Missing character: There is no ’ in font ec-lmr10!
+File: testTime_Rectangle.png Graphic file (type bmp)
+<testTime_Rectangle.png>
 [4] [5]
-File: testTime.png Graphic file (type bmp)
-<testTime.png>
-File: testNodes.png Graphic file (type bmp)
-<testNodes.png>
- [6] [7]
-File: quality_circle.png Graphic file (type bmp)
-<quality_circle.png>
+File: testNombre.png Graphic file (type bmp)
+<testNombre.png>
+File: testQualities_Rectangle.png Graphic file (type bmp)
+<testQualities_Rectangle.png>
+ [6] [7] [8
 
-Underfull \hbox (badness 10000) in paragraph at lines 185--186
-
- []
-
-[8
-
-] (./rapport_XIANQiwei.aux) ) 
+]
+File: TestTime_Circle.png Graphic file (type bmp)
+<TestTime_Circle.png>
+Missing character: There is no ’ in font ec-lmr10!
+File: testQuality_Circle.png Graphic file (type bmp)
+<testQuality_Circle.png>
+ [9] [10] (./rapport_XIANQiwei.aux) ) 
 Here is how much of TeX's memory you used:
- 22115 strings out of 493007
- 431206 string characters out of 6136718
- 521599 words of memory out of 5000000
- 25907 multiletter control sequences out of 15000+600000
+ 22119 strings out of 493007
+ 431403 string characters out of 6136718
+ 527599 words of memory out of 5000000
+ 25910 multiletter control sequences out of 15000+600000
  600609 words of font info for 65 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
- 46i,26n,64p,10451b,468s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 46i,28n,64p,10451b,468s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on rapport_XIANQiwei.pdf (9 pages).
+Output written on rapport_XIANQiwei.pdf (11 pages).

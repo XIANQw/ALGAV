@@ -24,8 +24,8 @@ public class TestCircle extends TestRectangle{
 					if(test > 0) {
 						long startTime = System.currentTimeMillis();
 						Circle res = Ritter.ritter(points);
-						ArrayList<Point> polygon = Calcule.jarvis(points);
 						long endTime = System.currentTimeMillis();
+						ArrayList<Point> polygon = Calcule.jarvis(points);
 						int diff = (int) (endTime - startTime);
 						double q = Calcule.quality(res, polygon);
 						Mytest<Double> testQuality = new Mytest<Double>(numTest, q);
@@ -46,6 +46,7 @@ public class TestCircle extends TestRectangle{
 				line = in.readLine();
 			}
 			printQuality();
+			printTimes();
 			in.close();
 		}catch (IOException e) {
 			System.err.println("io error");

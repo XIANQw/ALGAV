@@ -58,7 +58,8 @@ public class DefaultTeam {
   // calculCercleMin: ArrayList<Point> --> Circle
   //   renvoie un cercle couvrant tout point de la liste, de rayon minimum.
   public Circle calculCercleMin(ArrayList<Point> points) {
-		if (points.isEmpty()) {
+		
+	  	if (points.isEmpty()) {
 			return null;
 		}
 		return Ritter.ritter(points);

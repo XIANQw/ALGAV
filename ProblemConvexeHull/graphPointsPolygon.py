@@ -21,8 +21,10 @@ y = [int(y_str[i]) for i in range(len(y_str) - 1)]
 
 plt.ylim((0, 30))
 plt.bar(x, y)
-plt.title('Nombre de points de polygon')
-plt.xlabel('test number')
-plt.ylabel('Nombre de points de polygon')
+plt.xticks(fontsize=20)
+plt.yticks(fontsize=20)
+plt.title('Nombre de points de polygon', fontsize=20)
+plt.xlabel('test number', fontsize=20)
+plt.ylabel('Nombre de points de polygon', fontsize=20)
 plt.legend()
 plt.show()
