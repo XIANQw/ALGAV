@@ -1,4 +1,4 @@
-package algorithms;
+package com.panel;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -22,7 +22,7 @@ public class GeneratorPanel extends JFrame implements KeyListener{
 
   @Override
   public void keyPressed(KeyEvent e) {
-    if(e.getKeyCode() == KeyEvent.VK_R){
+    if(e.getKeyCode() == KeyEvent.VK_N){
     	panel.init();
     }
     if(e.getKeyCode() == KeyEvent.VK_E){
@@ -32,6 +32,9 @@ public class GeneratorPanel extends JFrame implements KeyListener{
     	panel.circle();
     }
     if(e.getKeyCode() == KeyEvent.VK_D){
+    	panel.diameter();
+    }
+    if(e.getKeyCode() == KeyEvent.VK_R){
     	panel.rectangle();
     }
     

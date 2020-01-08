@@ -1,6 +1,8 @@
-package algorithms;
+package com;
 
 import javax.swing.SwingUtilities;
+
+import com.panel.GeneratorPanel;
 
 
 public class Main {

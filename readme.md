@@ -1,11 +1,23 @@
 # Convex Hull Problem
 
+## Author
+  - XIAN Qiwei
+
+## Introduction
 In this project i would like to resolve some convex hull problems, such as minimum covering circle, the smallest covering polygon and the smallest covering rectangle.
 
 ## Algorithm
- - Minimum covering circle : Approximation algorithm
- - Minimum covering polygon : Jarvis algorithm
- - Minimum covering rectangle : Toussaint algorithm
+- Minimum covering circle : Ritter algorithm
+- Minimum covering polygon : Jarvis algorithm
+- Minimum covering rectangle : Toussaint algorithm
 
-## Author
-  - XIAN Qiwei
+## Guide
+ - Compilation
+```
+  make
+```
+
+- Execution
+```
+  make run
+```

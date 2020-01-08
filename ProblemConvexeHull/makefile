@@ -2,7 +2,7 @@
 
 TARGET = bin
 SOURCE = src
-PACKAGE = algorithms
+PACKAGE = com
 TEST = test
 DOC = doc
 JAR = convexHull
@@ -14,7 +14,7 @@ SOURCE_TEST = $(wildcard $(TEST)/**/*.java)
 file: $(patsubst $(SOURCE)/%.java,$(TARGET)/%.class,$(SOURCE_FILES))
 
 $(TARGET)/%.class: $(SOURCE)/%.java
-	javac -cp jars/TME2_supportGUI.jar -sourcepath $(SOURCE) $^ -d $(TARGET)
+	javac -sourcepath $(SOURCE) $^ -d $(TARGET)
 
 run: file
 	cd $(TARGET); java $(PACKAGE).Main

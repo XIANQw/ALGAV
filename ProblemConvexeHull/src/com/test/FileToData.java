@@ -1,4 +1,4 @@
-package algorithms;
+package com.test;
 
 import java.awt.Point;
 import java.io.BufferedReader;

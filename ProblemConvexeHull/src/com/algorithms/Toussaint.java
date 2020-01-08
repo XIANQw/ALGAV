@@ -1,10 +1,11 @@
-package algorithms;
+package com.algorithms;
 
 import java.awt.Point;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import supportGUI.Line;
+import com.structure.Line;
+
 
 public class Toussaint {
 
@@ -15,7 +16,7 @@ public class Toussaint {
 		  int u = 1, r = 1, l = 1, n = polygon.size() - 1;
 		  for(int i=0; i < n; ++i) {
 			  while(Math.abs(Calcule.crossProduct(polygon.get(i + 1), polygon.get(i), polygon.get(u))) <=
-					  Math.abs(Calcule.crossProduct(polygon.get(i+1), polygon.get(i), polygon.get(u + 1)))){
+					  Math.abs(Calcule.crossProduct(polygon.get(i + 1), polygon.get(i), polygon.get(u + 1)))){
 				  u = (u + 1) % n;
 			  }
 			  
@@ -55,14 +56,16 @@ public class Toussaint {
 	  }
 	  
 	  public static Line rotatingCalipers(ArrayList<Point> points) {
+		  points = Calcule.jarvis(points);
 		  int j = 1, max = 0, n = points.size() - 1;
 		  Line res = null;
 		  for(int i = 0; i < n; i++) {
-			  while(Math.abs(Calcule.crossProduct(points.get(i + 1), points.get(i), points.get(j))) <
+			  while(Math.abs(Calcule.crossProduct(points.get(i + 1), points.get(i), points.get(j))) <=
 			  Math.abs(Calcule.crossProduct(points.get(i + 1), points.get(i), points.get(j + 1)))) {
 				  j = (j+1) % n;
 			  }
 			  int dis = Calcule.calculDistance(points.get(i), points.get(j));
+			  
 			  if (dis > max) {
 				  max = dis;
 				  res = new Line(points.get(i), points.get(j));

@@ -1,4 +1,4 @@
-package algorithms;
+package com.test;
 
 import java.awt.Point;
 import java.io.BufferedReader;
@@ -6,7 +6,10 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import supportGUI.Circle;
+import com.algorithms.Calcule;
+import com.algorithms.Ritter;
+import com.structure.Circle;
+
 
 public class TestCircle extends TestRectangle{
 	

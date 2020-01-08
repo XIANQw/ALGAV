@@ -1,4 +1,4 @@
-package algorithms;
+package com.test;
 
 import java.awt.Point;
 import java.io.BufferedReader;
@@ -6,6 +6,9 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
+
+import com.algorithms.Calcule;
+import com.algorithms.Toussaint;
 
 public class TestRectangle {
 	

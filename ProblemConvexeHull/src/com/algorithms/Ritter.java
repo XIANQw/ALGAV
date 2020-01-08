@@ -1,10 +1,12 @@
-package algorithms;
+package com.algorithms;
 
 import java.awt.Point;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Random;
+
+import com.structure.Circle;
 
 public class Ritter {
 

@@ -1,7 +1,9 @@
-package algorithms;
+package com.algorithms;
 
 import java.awt.Point;
 import java.util.ArrayList;
+
+import com.structure.Circle;
 
 
 public class Calcule{

@@ -1,4 +1,4 @@
-package algorithms;
+package com.panel;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -8,12 +8,20 @@ import java.util.ArrayList;
 
 import javax.swing.JPanel;
 
+import com.algorithms.Calcule;
+import com.algorithms.Ritter;
+import com.algorithms.Toussaint;
+import com.structure.Circle;
+import com.structure.Line;
+import com.test.FileToData;
+
 @SuppressWarnings("serial")
 public class Panel extends JPanel{
 	ArrayList<Point> points;
 	ArrayList<Point> enveloppe;
 	ArrayList<Point> rectangle;
 	Circle circle;
+	Line diameter;
 	
 	public Panel() {
 		points = FileToData.nextFile();
@@ -33,10 +41,11 @@ public class Panel extends JPanel{
 		for(Point p : points) {
 			drawPoint(p, g, Color.BLUE);
 		}
-		String message = "r: next point set | e: polygon | d: rectangle | c: circle";
+		String message = "n: next point set | d: diameter | e: polygon | r: rectangle | c: circle";
 		g.setColor(Color.BLACK);
 		g.setFont(new Font("DejaVu Sans Mono", Font.PLAIN, 13));
 		g.drawChars(message.toCharArray(), 0, message.length(), 30, 60);
+		drawDiameter(g, Color.CYAN);
 		drawHull(g, Color.red);
 		drawRectangle(g, Color.BLACK);
 		drawCircle(g, Color.ORANGE);
@@ -46,6 +55,11 @@ public class Panel extends JPanel{
 	private void drawPoint(Point p, Graphics g, Color color) {
 		g.setColor(color);
 		g.fillOval(p.x, p.y, 3, 3);
+	}
+	
+	private void drawDiameter(Graphics g, Color color) {
+		if(diameter == null) return ;
+		g.drawLine(diameter.getP().x, diameter.getP().y, diameter.getQ().x, diameter.getQ().y);
 	}
 	
 	private void drawHull(Graphics g, Color color) {
@@ -80,11 +94,18 @@ public class Panel extends JPanel{
 				- circle.getRadius(), (2 * circle.getRadius()), (2 * circle.getRadius()));
 	}
 	
+	
 	public void init() {
 		points = FileToData.nextFile();
 		enveloppe.clear();
 		rectangle.clear();
 		circle = null;
+		diameter = null;
+		repaint();
+	}
+	
+	public void diameter() {
+		if(diameter == null) diameter = Toussaint.rotatingCalipers(points);
 		repaint();
 	}
 	

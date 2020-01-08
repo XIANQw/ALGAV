@@ -1,4 +1,4 @@
-package algorithms;
+package com.test;
 
 @SuppressWarnings("rawtypes")
 public class Mytest<T> implements Comparable{
