@@ -3,7 +3,6 @@ package algorithms;
 import java.awt.Point;
 import java.util.ArrayList;
 
-import supportGUI.Circle;
 
 public class Calcule{
 	
