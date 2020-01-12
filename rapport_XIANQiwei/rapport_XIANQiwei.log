@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.99998 (TeX Live 2017/Debian) (preloaded format=xelatex 2019.12.14)  21 DEC 2019 23:20
+This is XeTeX, Version 3.14159265-2.6-0.99998 (TeX Live 2017/Debian) (preloaded format=xelatex 2019.12.14)  11 JAN 2020 22:46
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1478,14 +1478,17 @@ File: TestTime_Circle.png Graphic file (type bmp)
 Missing character: There is no ’ in font ec-lmr10!
 File: testQuality_Circle.png Graphic file (type bmp)
 <testQuality_Circle.png>
- [9] [10] (./rapport_XIANQiwei.aux) ) 
+ [9]
+File: Quality-Rec-Cer.png Graphic file (type bmp)
+<Quality-Rec-Cer.png>
+ [10] [11] (./rapport_XIANQiwei.aux) ) 
 Here is how much of TeX's memory you used:
- 22119 strings out of 493007
- 431403 string characters out of 6136718
+ 22123 strings out of 493007
+ 431492 string characters out of 6136718
  527599 words of memory out of 5000000
- 25910 multiletter control sequences out of 15000+600000
+ 25913 multiletter control sequences out of 15000+600000
  600609 words of font info for 65 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
  46i,28n,64p,10451b,468s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on rapport_XIANQiwei.pdf (11 pages).
+Output written on rapport_XIANQiwei.pdf (12 pages).

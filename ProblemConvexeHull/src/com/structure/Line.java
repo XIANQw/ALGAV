@@ -1,3 +1,6 @@
+/*
+This class define a point
+*/
 package com.structure;
 
 import java.awt.Point;

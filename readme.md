@@ -21,3 +21,7 @@ In this project i would like to resolve some convex hull problems, such as minim
 ```
   make run
 ```
+- Clean porject
+```
+make clean
+```

@@ -238,4 +238,13 @@ Dans ces 1664 cas des tests, le test-10 coûte toujours le plus de temps 83 ms, 
 \includegraphics[width=\textwidth]{testQuality_Circle.png}\\
 Le résultat obtenu par l'algorithme Ritter est approximatif, donc l'aire de cercle change toujours souvent, la qualité de cercle convexe n'est pas définitive.
 
+\subsection{Application en 3D}
+L'Algorithme Ritter est proposé afin de résoudre le problème de la sphère englobante, mais il n'assure pas la sphère englobante minimum. Il nous permet de calculer une sphère qui est plus grande de $5\%$ à $20\%$ que celle minimum en temps $\mathcal{O}(nd)$ où $n$ est le numbre de points dans l'espace de $d$-dimmension.
+
+\section{Conclusion}
+\lhead{Conclusion}
+
+\includegraphics[width=\textwidth]{Quality-Rec-Cer.png}\\
+En comparant la qualité de cercle et celle de rectangle, on peut déduire que l'aire de cercle est plus grande que celle de rectangle dans le plupart des tests. Une raison importante est que notre cercle convexe n'est pas minimum, mais l'avantage d'algorithme Ritter est son efficace formidable. Si on veut mettre la vitesse en la première position mais pas l'exacititude, cet algorithme est un très bon choix. Pour l'algorithme de Toussaint, il a aussi une bonne performance et nous permet de calculer un resulat exact.
+
 \end{document}

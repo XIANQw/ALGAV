@@ -1,3 +1,7 @@
+/*
+This java class is used for generate a Canvas Panel 
+*/
+
 package com.panel;
 
 import java.awt.event.KeyEvent;
@@ -8,15 +12,12 @@ import javax.swing.JFrame;
 public class GeneratorPanel extends JFrame implements KeyListener{
 
   private Panel panel;
- 
+
   public GeneratorPanel(){
-	panel = new Panel();
-	add(panel);
+    panel = new Panel();
+    add(panel);
     setTitle("Panel");
     setSize(800,600);
-    setLocationRelativeTo(null);
-    setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    setResizable(false);
     addKeyListener(this);
   }
 
@@ -37,7 +38,7 @@ public class GeneratorPanel extends JFrame implements KeyListener{
     if(e.getKeyCode() == KeyEvent.VK_R){
     	panel.rectangle();
     }
-    
+
   }
 
   @Override
@@ -47,6 +48,6 @@ public class GeneratorPanel extends JFrame implements KeyListener{
   @Override
   public void keyTyped(KeyEvent arg0) {
   }
-  
+
 
 }

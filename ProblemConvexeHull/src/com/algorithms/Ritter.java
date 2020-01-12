@@ -1,3 +1,6 @@
+/*
+This class realize Ritter algorithm
+*/
 package com.algorithms;
 
 import java.awt.Point;
@@ -27,7 +30,7 @@ public class Ritter {
 		// 6. remove p q from set
 		rest.remove(p);
 		rest.remove(q);
-		// 7. A loop  
+		// 7. A loop
 		while (!rest.isEmpty()) {
 			Iterator<Point> itr = rest.iterator();
 			while(itr.hasNext()) {
@@ -37,7 +40,7 @@ public class Ritter {
 					itr.remove();
 					continue;
 				}
-				// 9. 
+				// 9.
 				double sc = Math.sqrt(Calcule.calculDistance(C, s)),
 						sq = sc + res.getRadius(),
 						sc2 = sq / 2,

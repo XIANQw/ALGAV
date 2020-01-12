@@ -1,3 +1,6 @@
+/*
+This class realize Toussaint algorithm
+*/
 package com.algorithms;
 
 import java.awt.Point;
@@ -9,7 +12,7 @@ import com.structure.Line;
 
 public class Toussaint {
 
-	
+		/* Computing a minimum convex polygon*/
 	  public static ArrayList<Point> toussaint(ArrayList<Point> polygon){
 		  double min = Double.MAX_VALUE, d_ = 0, r_ = 0, l_ = 0, width = 0, height = 0, s = 0;
 		  Point [] rectangle = new Point[4];
@@ -19,19 +22,19 @@ public class Toussaint {
 					  Math.abs(Calcule.crossProduct(polygon.get(i + 1), polygon.get(i), polygon.get(u + 1)))){
 				  u = (u + 1) % n;
 			  }
-			  
+
 			  while(Calcule.dotProduct(polygon.get(i + 1), polygon.get(i), polygon.get(r)) <=
 					  Calcule.dotProduct(polygon.get(i + 1), polygon.get(i), polygon.get(r + 1))) {
 				  r = (r + 1) % n;
 			  }
-			  
+
 			  if(i == 0) l = r;
-			  
+
 			  while(Calcule.dotProduct(polygon.get(i + 1), polygon.get(i), polygon.get(l)) >=
 					  Calcule.dotProduct(polygon.get(i + 1), polygon.get(i), polygon.get(l + 1))) {
 				  l = (l + 1) % n;
 			  }
-			  
+
 			  d_ = Math.sqrt((double)Calcule.calculDistance(polygon.get(i), polygon.get(i + 1)));
 			  r_ = Calcule.dotProduct(polygon.get(i + 1), polygon.get(i), polygon.get(r)) / d_;
 			  l_ = Calcule.dotProduct(polygon.get(i + 1), polygon.get(i), polygon.get(l)) / d_;
@@ -54,7 +57,8 @@ public class Toussaint {
 		  }
 		  return new ArrayList<Point>(Arrays.asList(rectangle));
 	  }
-	  
+
+		/* Computing  diametre*/
 	  public static Line rotatingCalipers(ArrayList<Point> points) {
 		  points = Calcule.jarvis(points);
 		  int j = 1, max = 0, n = points.size() - 1;
@@ -65,7 +69,7 @@ public class Toussaint {
 				  j = (j+1) % n;
 			  }
 			  int dis = Calcule.calculDistance(points.get(i), points.get(j));
-			  
+
 			  if (dis > max) {
 				  max = dis;
 				  res = new Line(points.get(i), points.get(j));
@@ -73,5 +77,5 @@ public class Toussaint {
 		  }
 		  return res;
 	  }
-	
+
 }
